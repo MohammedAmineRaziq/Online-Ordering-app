@@ -17,7 +17,16 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">{{ __('Pizza') }}</div>
-
+                @if (count($errors)>0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                 <li>{{ $error }}</li>
+                             @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form method="post" action={{ route('pizza.store') }}>@csrf
                 <div class="card-body">
                     <div class="form-groups">
                         <label for="name">Pizza's Name</label>
@@ -31,20 +40,20 @@
                         <label >Price : </label>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">Small Pizza Price :</span>
-                            <input type="number" class="form-control" aria-label="">
+                            <input type="number" name="small_price" class="form-control" aria-label="">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">Medium Pizza Price :</span>
-                            <input type="number" class="form-control" aria-label="">
+                            <input type="number" name="medium_price" class="form-control" aria-label="">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">large Pizza Price :</span>
-                            <input type="number" class="form-control" aria-label="">
+                            <input type="number" name="large_price" class="form-control" aria-label="">
                         </div>
                     </div>
                     <div class="form-groups">
                         <label for="Category" class="pb-1">Catagory :</label>
-                        <select class="form-control" id="">
+                        <select  name="category" class="form-control" id="">
                             <option value="">Cheese Pizza</option>
                             <option value="">Viggie Pizza</option>
                             <option value="">Meat Pizza</option>
@@ -58,7 +67,7 @@
                         <input class="form-control form-control-sm"type="file">
                     </div>
                     <div class="form-froup pt-3">
-                        <button type="submit" class="btn btn-primary">Primary</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
