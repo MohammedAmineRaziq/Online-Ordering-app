@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PizzaStoreRequest extends FormRequest
+class PizzaUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class PizzaStoreRequest extends FormRequest
             'medium_price'=>'Required|numeric',
             'large_price'=>'Required|numeric',
             'category'=>'Required',
-            'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ];
     }
 }

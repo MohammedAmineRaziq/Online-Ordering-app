@@ -3,13 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">{{ __('Navigate') }}</div>
                 <div class="card-body">
                     <div class="list-group">
-                        <a href="{{route('pizza.index')}}" class="list-group-item list-group-item-action">View</a>
-                        <a href="{{route('pizza.create')}}" class="list-group-item list-group-item-action">Add</a>
+                        <a href="{{route('pizza.index')}}" class="list-group-item list-group-item-action">Retourn to the List</a>
                     </div>
                 </div>
                 </div>
@@ -25,32 +24,33 @@
                 </div>
             @endif
             </div>  
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Pizza') }}</div>
-                <form method="post" action={{ route('pizza.store')}}  enctype="multipart/form-data">@csrf
+                <div class="card-header">{{ __('Edit Pizza') }}</div>
+                <form method="post" action={{ route('pizza.update',$pizza->id)}}  enctype="multipart/form-data">@csrf
+                @method('PUT')
                 <div class="card-body">
                     <div class="form-groups">
                         <label for="name">Pizza's Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Pizza's name">
+                        <input type="text" class="form-control" name="name" value="{{$pizza->name}}">
                     </div>
                     <div class="form-groups">
                         <label for="description">Description</label>
-                        <textarea name="description"  class="form-control"></textarea>
+                        <textarea name="description"  class="form-control">{{$pizza->description}}</textarea>
                     </div>
                     <div class="form-inline">
                         <label >Price : </label>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">Small Pizza Price :</span>
-                            <input type="number" name="small_price" class="form-control" aria-label="">
+                            <input type="number" name="small_price" class="form-control" value="{{$pizza->small_price}}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">Medium Pizza Price :</span>
-                            <input type="number" name="medium_price" class="form-control" aria-label="">
+                            <input type="number" name="medium_price" class="form-control" value="{{$pizza->medium_price}}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text w-25 p-1">large Pizza Price :</span>
-                            <input type="number" name="large_price" class="form-control" aria-label="">
+                            <input type="number" name="large_price" class="form-control" value="{{$pizza->large_price}}">
                         </div>
                     </div>
                     <div class="form-groups">
@@ -67,6 +67,7 @@
                     <div>
                         <label for="Image " class="form-label pt-1">Image :</label>
                         <input name="image" class="form-control form-control-sm" type="file">
+                        <img src="{{url($pizza->image)}}" alt="Image" width="80"/>
                     </div>
                     <div class="form-froup pt-3">
                         <button type="submit"  class="btn btn-primary">Save</button>

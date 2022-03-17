@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
-    
     <div class="row justify-content-center">
-        <div><a href="{{route('Frontpage')}}" ><button type="button" class="btn btn-dark" style="margin-left:100px ">Order Pizza</button></a></div>
-        <div class="col-md-10">
+        
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('My Orders') }}</div>
+                <div class="card-header">{{ __('Users Orders') }}</div>
+
                 <div class="card-body">
                     <div class="card-body">
                         @if (session('message'))
@@ -18,6 +18,8 @@
                         <table class="table table-bordered">
                             <thead class="thead-light">
                               <tr>
+                                <th scope="col">User</th>
+                                <th scope="col">Phone/Email</th>
                                 <th scope="col">Date/Time</th>
                                 <th scope="col" >Pizza</th>
                                 <th scope="col">Small</th>
@@ -26,11 +28,16 @@
                                 <th scope="col">Message</th>
                                 <th scope="col">Total($)</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Accept</th>
+                                <th scope="col">Reject</th>
+                                <th scope="col">Completed</th>
                               </tr>
                             </thead>
                             <tbody>
                             @foreach($orders as $order)
                               <tr>
+                                <th scope="row">{{$order->user->name}}</th>
+                                <th scope="row">{{$order->user->email}}<br>{{$order->Phone}}</th>
                                 <th scope="row">{{$order->date}} / {{$order->time}}</th>
                                 <th scope="row">{{$order->pizza->name}}</th>
                                 <th scope="row">{{$order->small_pizza}}</th>
@@ -43,6 +50,17 @@
                                                     ($order->pizza->large_price * $order->large_pizza)
                                                 }}</th>
                                 <th scope="row">{{$order->status}}</th>
+                                <form action="{{route('Order.status',$order->id)}}" method="post">@csrf
+                                    <th scope="row">
+                                        <input  name="status" type="submit" value="Accept" class="btn btn-success">
+                                    </th>
+                                    <th scope="row">
+                                        <input  name="status" type="submit" value="Declin" class="btn btn-danger">
+                                    </th>
+                                    <th scope="row">
+                                        <input  name="status" type="submit" value="Completed" class="btn btn-primary">
+                                    </th>
+                                </form>
                               </tr>
                               @endforeach
                             </tbody>
@@ -52,26 +70,4 @@
         </div>
     </div>
 </div>
-<style>
-     a.list-group-item{
-        font-size: 12px
-    }
-    a.list-group-item:hover{
-        background-color: #FFE61B;
-        color: 1B1A17;
-    }
-    div.card-header
-    {
-        background-color: #FFB72B;
-        color: #1B1A17;
-        font-size: 18px
-
-    }
-    thead
-    {
-        background-color: #FFB72B;
-        color:#1B1A17;
-        font-size: 18px
-    }
-</style>
 @endsection
